@@ -1,0 +1,194 @@
+.container{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hover-option ul li:hover{
+    cursor: pointer;
+    font-weight: 800;
+    transform: translateY(-5px);
+    text-shadow: 4px 5px 3px #888;
+}
+
+.left-side{
+    width: 25%;
+}
+
+.container-left-side{
+    position: fixed;
+    height: 100vh;
+    width: inherit;
+    margin: 0 -15px;
+    overflow-x: hidden !important;
+    overflow-y: auto;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-radius: 0;
+    z-index: 1;
+}
+
+.container-left-side .necessary-icon{
+    text-align: right;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.container-left-side .necessary-icon>div{
+    margin: 10px 0 10px 20px;
+}
+
+.container-left-side .necessary-icon > div > a{
+    color: #000000;
+}
+
+.container-shopping-cart a{
+    color: #000000;
+    display: inline-block;
+    font-size: 18px;
+    position: relative;
+    margin: 0 5px;
+}
+
+.container-shopping-cart a span:nth-child(2){
+    display: block;
+    width: 12px;
+    height: 12px;
+    line-height: 13px;
+    background-color: #05486d;
+    padding: 3px;
+    color: #fff;
+    position: absolute;
+    top: -3px;
+    right: -6px;
+    border-radius: 100%;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.container-left-side .run-logo{
+    text-align: center;
+    margin: 30px 0;
+}
+
+.menu-shoes-options ul li{
+    text-align: center;
+    padding: 20px 0;
+    transition: all .3s;
+}
+
+.menu-shoes-options ul li a{
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.menu-shoes-options ul li:hover{
+    font-size: 20px;
+}
+
+.menu-basic-options ul li{
+    display: block;
+    text-align: center;
+    font-style: italic;
+    padding: 5px 0;
+    transition: all .3s;
+}
+
+.menu-basic-options ul li:hover{
+    font-size: 17x;
+}
+
+.menu-search-form{
+    position: relative;
+}
+
+.menu-search-form input{
+    display: block;
+    width: 100%;
+    height: auto;
+    border: none;
+    border-bottom: 1px solid #111111;
+    line-height: 36px;
+    outline: none;
+    margin: 0 30px;
+    padding: 5px 0;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: 300;
+    opacity: .6;
+}
+
+.menu-search-form .search-icon{
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: 34px;
+    font-size: 18px;
+    bottom: 0;
+    border: none;
+    background: none;
+    transition: all .3s;
+}
+
+.menu-search-form .search-icon:hover{
+    cursor: pointer;
+    color: salmon;
+}
+
+.menu-social-network-icon {
+    margin-top: 20px;
+}
+
+.menu-social-network-icon ul {
+    display: flex;
+}
+
+.menu-social-network-icon ul li{
+    font-size: 35px;
+    margin-right: 20px;
+}
+
+.menu-social-network-icon ul li a{
+    color: #05486d;
+}
+
+.right-side{
+    width: 75%;
+}
+
+.right-side img{
+    width: 100%;
+}
+
+.fixed-cart{
+    position: fixed;
+    top: 50%;
+    right: 0;
+}
+
+.fixed-cart button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 70px;
+    background: #000000;
+    border: none;
+    color: #ececec;
+    border-radius: 20px 0 0 20px;
+}
+
+.fixed-cart button span{
+    padding: 5px 0;
+}
+
+.fixed-cart button:hover{
+    cursor: pointer;
+}

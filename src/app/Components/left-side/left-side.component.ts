@@ -1,19 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-left-side',
+  templateUrl: './left-side.component.html',
+  styleUrls: ['./left-side.component.css']
 })
-export class AppComponent {
-  title = 'Run Shoes';
+export class LeftSideComponent implements OnInit {
 
   faFacebook = faFacebook;
   faYouTube = faYoutube;
   faInstagram = faInstagram;
-  
-  shoesList = ["adidas", "nike", "bitis", 'lll']
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
 }
