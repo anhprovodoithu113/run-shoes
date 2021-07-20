@@ -14,6 +14,5 @@ export class AppComponent {
   faFacebook = faFacebook;
   faYouTube = faYoutube;
   faInstagram = faInstagram;
-  
-  shoesList = ["adidas", "nike", "bitis", 'lll']
+
 }

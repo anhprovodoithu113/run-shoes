@@ -6,14 +6,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LeftSideComponent } from './Components/left-side/left-side.component';
-import { RightSideComponent } from './Components/right-side/right-side.component';
+import { HomeComponent } from './Components/home/home.component';
+import { FixedCartComponent } from './Components/fixed-cart/fixed-cart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LeftSideComponent,
-    RightSideComponent
+    HomeComponent,
+    FixedCartComponent,
   ],
   imports: [
     BrowserModule,
