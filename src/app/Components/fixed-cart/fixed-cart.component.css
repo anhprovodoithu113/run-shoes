@@ -1,0 +1,26 @@
+.fixed-cart{
+    position: fixed;
+    top: 50%;
+    right: 0;
+}
+
+.fixed-cart button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 70px;
+    background: #000000;
+    border: none;
+    color: #ececec;
+    border-radius: 20px 0 0 20px;
+}
+
+.fixed-cart button span{
+    padding: 5px 0;
+}
+
+.fixed-cart button:hover{
+    cursor: pointer;
+}
