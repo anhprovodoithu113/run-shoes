@@ -31,7 +31,7 @@
         </ul>
       </div>
       <div class="menu-search-form">
-        <input type="text" id="search-bar" />
+        <input type="text" id="search-bar" placeholder="Search" />
         <button class="search-icon">
           <span class="material-icons">search</span>
         </button>
@@ -47,15 +47,7 @@
     
   </div>
   <div class="right-side">
-    <img src="../assets/img/banner.png" alt="" class="banner">
-    <ul *ngFor="let item of shoesList">
-      <li>item</li>
-    </ul>
+    <router-outlet></router-outlet>
   </div>
-  <div class="fixed-cart">
-    <button>
-      <span class="material-icons">shopping_cart</span>
-      <span>0 Items</span>
-    </button>
-  </div>
+  
 </div>

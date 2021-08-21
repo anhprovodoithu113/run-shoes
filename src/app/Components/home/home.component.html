@@ -1,0 +1,27 @@
+<div class="home-header">
+    <img src="../assets/img/banner.png" alt="" class="banner">
+    <div class="home-body">
+        <div class="featured-products">
+            <h2>Featured Products</h2>
+            <ul class="display-flex">
+                <li class="item-details" *ngFor="let item of shoesList">
+                    <div class="item-image">
+                        <a href="#"><img [src]="item.image" [title] = "item.name"></a>
+                        <button class="preview-btn">Preview</button>
+                    </div>
+                    <a href="#">{{ item.name }}</a>
+                    <div class="rated-star">
+                        {{item.rated}}
+                    </div>
+                    <span>${{ item.price }}</span>
+                    <a href="#" class="container-item-shopping-cart">
+                        <span class="material-icons">shopping_cart</span>
+                        <span>ADD TO CART</span>
+                    </a>
+                </li>
+              </ul>
+        </div>
+    </div>
+</div>
+
+<app-fixed-cart></app-fixed-cart>
