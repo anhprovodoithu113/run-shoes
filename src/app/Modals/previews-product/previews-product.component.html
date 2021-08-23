@@ -1,0 +1,33 @@
+<div class="shoes-modal display-row">
+    <div class="left-column">
+        <img [src]="imagePath">
+    </div>
+    <div class="right-column">
+        <p class="name-of-shoes">{{data.name}}</p>
+        <p class="price-of-shoes">Default price: ${{data.defaultPrice}}</p>
+        <p class="orignal-of-shoes">Original:&nbsp;&nbsp;<span [class]='classNameByNationalFlag()'></span></p>
+        <p>Avaibility: {{ availabilityProd }}</p>
+        <hr>
+        <div class="options-section">
+            <label for="colors">Choose options</label>
+
+            <ul>
+                <li>Colors: </li>
+                <li *ngFor="let option of lstProdColor; let i = index" >
+                    <a [class.active]="selectedProdColorIndex === i" (click)='getProductStatus(option.id, i)'>{{ option.color }}</a>
+                </li>
+            </ul>
+    
+            <ul>
+                <li>Sizes: </li>
+                <li *ngFor="let item of lstProdStatus; let i = index">
+                    <a [class.active]="selectedProdStatusIndex === i" (click)='checkAvaibility(i)'>{{item.size}}</a>
+                </li>
+            </ul>
+            <label for="amount">Amount&nbsp;&nbsp;</label>
+            <input type="number" class="ordered-amount" [(ngModel)]="inputAmount">
+            <button (click)="onAddToCart()">Add to cart</button>
+        </div>
+        
+    </div>
+</div>

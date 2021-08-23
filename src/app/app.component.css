@@ -19,6 +19,11 @@
     width: 25%;
 }
 
+.display-flex-row{
+    display: flex;
+    flex-direction: row;
+}
+
 .container-left-side{
     position: fixed;
     height: 100vh;
@@ -104,11 +109,11 @@
     font-size: 17x;
 }
 
-.menu-search-form{
+.menu-input-form{
     position: relative;
 }
 
-.menu-search-form input{
+.menu-input-form input{
     display: block;
     width: 100%;
     height: auto;
@@ -116,7 +121,6 @@
     border-bottom: 1px solid #111111;
     line-height: 36px;
     outline: none;
-    margin: 0 30px;
     padding: 5px 0;
     font-size: 30px;
     font-style: italic;
@@ -124,7 +128,11 @@
     opacity: .6;
 }
 
-.menu-search-form .search-icon{
+.menu-input-form #search-bar{
+    margin: 0 30px;
+}
+
+.menu-input-form .input-icon{
     position: absolute;
     top: 0;
     right: 0;
@@ -136,7 +144,7 @@
     transition: all .3s;
 }
 
-.menu-search-form .search-icon:hover{
+.menu-input-form .input-icon:hover{
     cursor: pointer;
     color: salmon;
 }
@@ -160,4 +168,52 @@
 
 .right-side{
     width: 75%;
+}
+
+footer{
+    background-color: #05486d;
+    color: #ffffff;
+}
+
+.upper-footer{
+    padding: 50px 0;
+}
+
+.upper-footer ul{
+    margin: 20px 50px;
+}
+
+.upper-footer ul li{
+    padding: 10px 0;
+    font-size: 18px;
+}
+
+.upper-footer ul li a{
+    color: #ffffff;
+}
+
+.upper-footer .third-column{
+    position: absolute;
+    right: 0;
+    margin-right: 100px;
+}
+
+.third-column p{
+    font-size: 25px;
+    padding-bottom: 10px;
+}
+
+.third-column .menu-input-form input{
+    background-color: #05486d;
+    color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+}
+
+.third-column button span{
+    color: #ffffff;
+}
+
+.lower-footer{
+    justify-content: space-between;
+    padding: 0 100px;
 }

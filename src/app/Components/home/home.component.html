@@ -1,23 +1,42 @@
 <div class="home-header">
     <img src="../assets/img/banner.png" alt="" class="banner">
     <div class="home-body">
-        <div class="featured-products">
-            <h2>Featured Products</h2>
+        <div class="home-product-list">
+            <div class="fixed-position">
+                <h2 class="product-title-header">Featured Products</h2>
+            </div>
             <ul class="display-flex">
-                <li class="item-details" *ngFor="let item of shoesList">
+                <li class="item-details" *ngFor="let item of featuredProducts">
                     <div class="item-image">
-                        <a href="#"><img [src]="item.image" [title] = "item.name"></a>
-                        <button class="preview-btn">Preview</button>
+                        <a href="#"><img [src]="createImgPath(item.imagePath)" [title] = "item.name"></a>
+                        <button class="preview-btn" mat-button (click)="openDialog(item.id,item.name, item.defaultPrice, item.original, item.imagePath)">Preview</button>
                     </div>
                     <a href="#">{{ item.name }}</a>
                     <div class="rated-star">
                         {{item.rated}}
                     </div>
-                    <span>${{ item.price }}</span>
-                    <a href="#" class="container-item-shopping-cart">
-                        <span class="material-icons">shopping_cart</span>
-                        <span>ADD TO CART</span>
-                    </a>
+                    <span>${{ item.defaultPrice }}</span>
+                    <span class="display-original">Original:&nbsp;&nbsp;<span [class]='classNameByNationalFlag(item.original)'></span></span>
+                </li>
+              </ul>
+        </div>
+
+        <div class="home-product-list">
+            <div class="fixed-position">
+                <h2 class="product-title-header">New Release</h2>
+            </div>
+            <ul class="display-flex">
+                <li class="item-details" *ngFor="let item of newProducts">
+                    <div class="item-image">
+                        <a href="#"><img [src]="createImgPath(item.imagePath)" [title] = "item.name"></a>
+                        <button class="preview-btn" mat-button (click)="openDialog(item.id, item.name, item.defaultPrice, item.original, item.imagePath)">Preview</button>
+                    </div>
+                    <a href="#">{{ item.name }}</a>
+                    <div class="rated-star">
+                        {{item.rated}}
+                    </div>
+                    <span>${{ item.defaultPrice }}</span>
+                    <span class="display-original">Original:&nbsp;&nbsp;<span [class]='classNameByNationalFlag(item.original)'></span></span>
                 </li>
               </ul>
         </div>
