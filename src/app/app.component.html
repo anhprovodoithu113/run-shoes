@@ -30,9 +30,9 @@
           <li><a href="#">Contact</a></li>
         </ul>
       </div>
-      <div class="menu-search-form">
+      <div class="menu-input-form">
         <input type="text" id="search-bar" placeholder="Search" />
-        <button class="search-icon">
+        <button class="input-icon">
           <span class="material-icons">search</span>
         </button>
       </div>
@@ -48,6 +48,36 @@
   </div>
   <div class="right-side">
     <router-outlet></router-outlet>
+    <footer>
+      <div class="upper-footer display-flex-row">
+        <ul class="first-column">
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Frequently questions</a></li>
+          <li><a href="#">Send Request</a></li>
+        </ul>
+        <ul class="second-column">
+          <li><a href="#">Transportation Methods</a></li>
+          <li><a href="#">Return Item Policy</a></li>
+          <li><a href="#">Payment Security Policy</a></li>
+        </ul>
+        <div class="third-column">
+          <p>Stay Up to Date</p>
+          <div class="menu-input-form">
+            <input type="text" placeholder="Email" />
+            <button class="input-icon">
+              <span class="material-icons">chevron_right</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="lower-footer display-flex-row">
+        <div class="payment-methods">
+          <img src="../assets/img/products/payment.png" title="payment methods">
+        </div>
+        <div class="copy-right">
+          <p>© Michael D-Killer Corporation</p>
+        </div>
+      </div>
+    </footer>
   </div>
-  
 </div>

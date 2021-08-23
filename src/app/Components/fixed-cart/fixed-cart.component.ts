@@ -11,5 +11,5 @@ export class FixedCartComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  
 }
