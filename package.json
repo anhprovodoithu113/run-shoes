@@ -23,6 +23,7 @@
     "@angular/router": "~11.2.13",
     "@fortawesome/angular-fontawesome": "^0.9.0",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "flag-icon-css": "^3.5.0",
     "rxjs": "~6.6.0",
     "sweetalert2": "^11.1.4",

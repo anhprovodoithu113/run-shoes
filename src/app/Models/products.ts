@@ -5,6 +5,6 @@ export interface Products {
     original: string;
     star: number;
     description: string;
-    imageData: any;
+    imagePath: any;
     createdAt: Date;
 }

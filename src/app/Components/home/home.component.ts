@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Products } from 'src/app/Models/products';
 import { ProductService } from 'src/app/Services/product.service';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { PreviewsProductComponent } from 'src/app/Modals/previews-product/previews-product.component';
-import { isEmpty } from 'rxjs/operators';
 import { NationalFlagProductService } from 'src/app/Services/national-flag-product.service';
 
 @Component({
@@ -23,13 +22,21 @@ export class HomeComponent implements OnInit {
   }
 
   private getAllProducts(){
-    this.productService.getAllProducts().subscribe((data: Products[]) =>{
-      var uniqueArray = this.getDistinctValue(data, 'name');
-      this.featuredProducts = uniqueArray.slice(0,4);
-
-      var sortedArray = uniqueArray.sort((a,b) => a.createdAt < b.createdAt? 1 : -1);
+    var lstProductFromCache = this.productService.getItemsFromCache('lstProduct');
+    if(!lstProductFromCache){
+      this.productService.getAllProducts().subscribe((data: Products[]) =>{
+        var uniqueArray = this.getDistinctValue(data, 'name');
+        this.productService.setItemsToCache('lstProduct',uniqueArray);
+        this.featuredProducts = uniqueArray.slice(0,4);
+  
+        var sortedArray = uniqueArray.sort((a,b) => a.createdAt < b.createdAt? 1 : -1);
+        this.newProducts = sortedArray.slice(0, 4);
+      });
+    } else{
+      this.featuredProducts = lstProductFromCache.slice(0,4);
+      var sortedArray = lstProductFromCache.sort((a,b) => a.createdAt < b.createdAt? 1 : -1);
       this.newProducts = sortedArray.slice(0, 4);
-    });
+    }
   }
 
   private openDialog(id: number, name: string, defaultPrice: string, original: string, image: string){

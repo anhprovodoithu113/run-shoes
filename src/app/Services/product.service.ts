@@ -33,6 +33,11 @@ export class ProductService {
     return this.httpClient.get<Products[]>(getProductAPI).pipe(retry(1), catchError(this.handleError));
   }
 
+  public getProductById(productId: number){
+    var getproductByIdAPI = `${this.SERVER_URL}/product-details/${productId}`;
+    return this.httpClient.get<any>(getproductByIdAPI).pipe(retry(1), catchError(this.handleError));
+  }
+
   public getAllProductColors(productId: number){
     var getProductColorAPI = `${this.SERVER_URL}/get-colors-by-product/${productId}`;
     return this.httpClient.get<ProductColor[]>(getProductColorAPI).pipe(retry(1), catchError(this.handleError));
@@ -41,5 +46,14 @@ export class ProductService {
   public getAllProductStatus(productColorId: number){
     var getProductStatusAPI = `${this.SERVER_URL}/get-product-statuses-by-color/${productColorId}`
     return this.httpClient.get<ProductStatus[]>(getProductStatusAPI).pipe(retry(1), catchError(this.handleError));
+  }
+
+  public getItemsFromCache(keyCache: string){
+    let items = localStorage.getItem(keyCache);
+    return JSON.parse(items);
+  }
+
+  public setItemsToCache(key, items: any){
+    localStorage.setItem(key, JSON.stringify(items));
   }
 }

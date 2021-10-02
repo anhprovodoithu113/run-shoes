@@ -1,0 +1,96 @@
+h2{
+    margin-top: 20px;
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+.display-flex-space-around{
+    display: flex;
+    justify-content: space-around;
+}
+
+.display-flex-space-between{
+    display: flex;
+    justify-content: space-between;
+}
+
+.shopping-cart-container table{
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 70%;
+    text-align: center;
+}
+
+table th{
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+table tr .product-details{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+table tr .product-details div:nth-child(1) img{
+    width: 100px;
+}
+
+table tr .product-details div:nth-child(2){
+    text-align: left;
+}
+
+table tr .product-details div:nth-child(2) span:nth-child(2){
+    margin-left: 10px;
+}
+
+table tr .product-quantity label{
+    padding: 0 10px;
+}
+
+table tr .product-quantity button{
+    width: 30px;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+.checkout-section {
+    width: 30%;
+    margin: 0 30px 30px;
+    text-transform: uppercase;
+}
+
+.checkout-section div:not(:first-child){
+    margin-top: 10px;
+}
+
+.checkout-section .header-checkout{
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+.checkout-section input{
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+}
+
+.checkout-section .total-row{
+    border-bottom: 1px solid black;
+}
+
+.checkout-section .proceed-checkout button{
+    text-transform: uppercase;
+    padding: 20px 30px;
+    width: 100%;
+    color: #ffffff;
+    background-color: #000;
+}

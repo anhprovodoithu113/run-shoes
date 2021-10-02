@@ -1,6 +1,6 @@
 <div class="fixed-cart">
-    <button>
+    <button [routerLink]="['/shopping-cart']">
       <span class="material-icons">shopping_cart</span>
-      <span>0 Items</span>
+      <span>{{shoppingCartService.getCartLength()}} Items</span>
     </button>
   </div>
