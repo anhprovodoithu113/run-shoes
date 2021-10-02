@@ -1,0 +1,60 @@
+<h2>Shopping cart</h2>
+<div class="shopping-cart-container display-flex-space-around">
+    <table>
+        <tr>
+            <th>items</th>
+            <th>price</th>
+            <th>quantity</th>
+            <th>discount</th>
+            <th>total</th>
+            <th></th>
+        </tr>
+        <tr *ngFor="let item of productInfors">
+            <td class="product-details">
+                <div>
+                    <img [src]="item.product.imagePath" alt="example-product">
+                </div>
+                <div>
+                    <p><span>{{item.product.name}}</span><span [class]='item.product.original'></span></p>
+                    <p>Size: <span>{{item.size.size}}</span></p>
+                    <p>Color: <span>{{item.color.color}}</span></p>
+                </div>
+            </td>
+            <td>${{item.product.defaultPrice}}</td>
+            <td class="product-quantity">
+                <button (click)="updateAmountFromCache(item.product.id, item.color.id, item.size.id, true)">-</button>
+                <label for="amount">{{item.orderAmount}}</label>
+                <button (click)="updateAmountFromCache(item.product.id, item.color.id, item.size.id, false)">+</button>
+            </td>
+            <td>{{calculateDiscount(item.orderAmount)}}%</td>
+            <td>${{calculateTotal(item.orderAmount, item.product.defaultPrice)}}</td>
+            <td>
+                <button (click)='removeItemsFromCache()'>&times;</button>
+            </td>
+        </tr>
+    </table>
+    <div class="checkout-section">
+        <div class="header-checkout">
+            <p>Order Summary</p>
+        </div>
+        <div class="subTotal-row display-flex-space-between">
+            <p>Sub total</p>
+            <p>${{subTotal}}</p>
+        </div>
+        <div class="coupon-row display-flex-space-between">
+            <p>Coupon</p>
+            <input type="text" placeholder="Your Coupon">
+        </div>
+        <div class="shipping-row display-flex-space-between">
+            <p>Zipcode</p>
+            <input type="text" placeholder="Your Zipcode" (change)="calculateFinalTotal($event)">
+        </div>
+        <div class="total-row display-flex-space-between">
+            <p>Total</p>
+            <p>${{finalTotal}}</p>
+        </div>
+        <div class="proceed-checkout">
+            <button>Proceed to checkout</button>
+        </div>
+    </div>
+</div>

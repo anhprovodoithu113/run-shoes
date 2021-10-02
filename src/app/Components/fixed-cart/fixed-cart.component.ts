@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ShoppingCartService } from 'src/app/Services/shopping-cart.service';
 
 @Component({
   selector: 'app-fixed-cart',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./fixed-cart.component.css']
 })
 export class FixedCartComponent implements OnInit {
-
-  constructor() { }
+  
+  constructor(public shoppingCartService: ShoppingCartService) { }
 
   ngOnInit(): void {
   }
+
+
   
 }

@@ -1,7 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons';
-import { faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { Component } from '@angular/core';
+import { faFacebook, faYoutube, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-root',

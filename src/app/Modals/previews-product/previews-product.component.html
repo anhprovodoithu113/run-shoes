@@ -25,8 +25,9 @@
                 </li>
             </ul>
             <label for="amount">Amount&nbsp;&nbsp;</label>
-            <input type="number" class="ordered-amount" [(ngModel)]="inputAmount">
+            <input type="number" class="ordered-amount" [(ngModel)]="inputAmount" min="0" oninput="validity.valid||(value='')">
             <button (click)="onAddToCart()">Add to cart</button>
+            <a [title]="data.name + ' details'" [routerLink]="['/product-details', data.id]" id="more-detail" (click)="onCloseModal()"><fa-icon [icon]='faSearch'></fa-icon> More detail</a>
         </div>
         
     </div>

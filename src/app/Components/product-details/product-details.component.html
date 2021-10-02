@@ -1,0 +1,75 @@
+<div class="preview-container">
+    <div class="info-product-container display-flex">
+        <div class="left-column">
+            <img [src]="createImgPath(product.imagePath)" [alt]="product.name">
+        </div>
+        <div class="right-column">
+            <p>{{product.name}}</p>
+            <div class="display-product-star">
+                <span *ngFor="let item of productStarArr">
+                    <fa-icon class="yellow-star" [icon]='faStar'></fa-icon>
+                </span>
+                <span *ngFor="let item of remainingStarArr">
+                    <fa-icon class="empty-star" [icon]='faStar'></fa-icon>
+                </span>
+            </div>
+            <span *ngIf="customerReviews.length > 1; then thenBlock else elseBlock"></span>
+            <ng-template #thenBlock>{{customerReviews.length}} Reviews</ng-template>
+            <ng-template #elseBlock>{{customerReviews.length}} Review</ng-template>
+            <p class="default-product-price">Default price: <span>${{product.defaultPrice}}</span></p>
+            <p class="display-original">Original:&nbsp;&nbsp;<span [class]='classNameByNationalFlag(product.original)'></span></p>
+            <p>Avability:&nbsp;{{avabilityStatus}}</p>
+            
+            <div class="options-section">
+                <label for="colors">Choose options</label>
+    
+                <ul>
+                    <li>Colors: </li>
+                    <li *ngFor="let option of lstProdColor; let i = index" >
+                        <a [class.active]="selectedProdColorIndex === i" (click)='getProductStatus(option.id, i)'>{{ option.color }}</a>
+                    </li>
+                </ul>
+        
+                <ul>
+                    <li>Sizes: </li>
+                    <li *ngFor="let item of lstProdStatus; let i = index">
+                        <a [class.active]="selectedProdStatusIndex === i" (click)='checkAvaibility(i)'>{{item.size}}</a>
+                    </li>
+                </ul>
+                <label for="amount">Amount&nbsp;&nbsp;</label>
+                <input type="number" class="ordered-amount" [(ngModel)]="inputAmount" min="0" oninput="validity.valid||(value='');">
+                <div>
+                    <button (click)="onAddToCart()">Add to cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="description-block">
+        <p>Description</p>
+        <span *ngIf="product.description == null; then thenBlockDes else elseBlockDes"></span>
+        <ng-template #thenBlockDes>This product has not provided the description yet.</ng-template>
+        <ng-template #elseBlockDes>{{product.description}}</ng-template>
+    </div>
+</div>
+
+
+<div class="related-items">
+    <p>Related items</p>
+    <ul class="display-flex">
+        <li class="item-details" *ngFor="let item of lstProduct">
+            <div class="item-image">
+                <a href="#"><img [src]="createImgPath(item.imagePath)" [title] = "item.name"></a>
+                <button class="preview-btn" mat-button (click)="openDialog(item.id,item.name, item.defaultPrice, item.original, item.imagePath)">Preview</button>
+            </div>
+            <a href="#">{{ item.name }}</a>
+            <div class="rated-star">
+                {{item.rated}}
+            </div>
+            <span>${{ item.defaultPrice }}</span>
+            <span class="display-original">Original:&nbsp;&nbsp;<span [class]='classNameByNationalFlag(item.original)'></span></span>
+        </li>
+      </ul>
+</div>
+
+
+<app-fixed-cart></app-fixed-cart>
