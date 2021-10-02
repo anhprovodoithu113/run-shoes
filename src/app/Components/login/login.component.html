@@ -1,13 +1,13 @@
 <div class="login-container">
     <h2 class="form-signin-heading">LOGIN</h2>
-    <form action="POST" class="form-signin" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+    <form action="POST" class="form-signin" #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && login(loginForm)">
         <div class="display-flex">
             <label for="username">Username/Email address</label>
-            <input type="text" id="username" ngModel placeholder="Username or Email address" required autofocus>
+            <input type="text" id="username" [(ngModel)]="loginForm.username" placeholder="Username or Email address" required autofocus>
         </div>
         <div class="display-flex">
             <label for="password">Password</label>
-            <input type="password" id="password" ngModel placeholder="Password" required>
+            <input type="password" id="password" [(ngModel)]="loginForm.password"  placeholder="Password" required>
         </div>
         <button type="submit">Login</button>
     </form>

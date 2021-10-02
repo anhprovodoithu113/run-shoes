@@ -1,0 +1,42 @@
+<div class="register-container">
+    <h2 class="form-signin-heading">REGISTER</h2>
+    <form class="form-signin" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="display-flex">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" [(ngModel)]="form.username" placeholder="Username" #username="ngModel" required minlength="3" maxlength="20" autofocus>
+            <div *ngIf="username.errors && f.submitted">
+                <div *ngIf="username.errors.required">Username is required</div>
+                <div *ngIf="username.errors.minlength">Username must be at least 3 characters</div>
+                <div *ngIf="username.errors.maxlength">Username must be at most 20 characters</div>
+            </div>
+        </div>
+        <div class="display-flex">
+            <label for="email">Email</label>
+            <input type="email" name="email" [(ngModel)]="form.email" placeholder="Email" required email #email="ngModel">
+            <div *ngIf="email.errors && f.submitted">
+                <div *ngIf="email.errors.required">Email is required</div>
+                <div *ngIf="email.errors.email">Email must be a valid email address</div>
+            </div>
+        </div>
+        <div class="display-flex">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" [(ngModel)]="form.password" #password="ngModel" placeholder="Password" required minlength="6">
+            <div *ngIf="password.errors && f.submitted">
+                <div *ngIf="password.errors.required">Password is required</div>
+                <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
+        </div>
+        <div class="display-flex">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="form.confirmPassword" #confirmPassword="ngModel" placeholder="Confirm Password" required minlength="6">
+            <div *ngIf="confirmPassword.errors && f.submitted">
+                <div *ngIf="confirmPassword.errors.required">Confirm password is required</div>
+                <div *ngIf="confirmPassword.errors.minlength">Confirm Password must be at least 6 characters</div>
+            </div>
+        </div>
+        <div class="display-flex submit-section" >
+            <a [routerLink]="['/login']">Back to login</a>
+            <button type="submit">Register</button>
+        </div>
+    </form>
+</div>

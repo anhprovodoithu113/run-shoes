@@ -15,6 +15,7 @@ import { PreviewsProductComponent } from './Modals/previews-product/previews-pro
 import { ProductDetailsComponent } from './Components/product-details/product-details.component';
 import { ShoppingCartComponent } from './Components/shopping-cart/shopping-cart.component';
 import { LoginComponent } from './Components/login/login.component';
+import { RegisterComponent } from './Components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { LoginComponent } from './Components/login/login.component';
     ProductDetailsComponent,
     ShoppingCartComponent,
     LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
