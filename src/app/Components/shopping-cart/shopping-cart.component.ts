@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ProductColor } from 'src/app/Models/product-color';
-import { Products } from 'src/app/Models/products';
 import { ShoppingCartItem } from 'src/app/Models/shopping-cart-item';
-import { NationalFlagProductService } from 'src/app/Services/national-flag-product.service';
 import { ShoppingCartService } from 'src/app/Services/shopping-cart.service';
 import Swal from 'sweetalert2';
 
@@ -14,12 +10,11 @@ import Swal from 'sweetalert2';
 })
 export class ShoppingCartComponent implements OnInit {
 
-  public productInfors: ShoppingCartItem[];
+  public productInfors: ShoppingCartItem[] = [];
   public subTotal: number = 0;
   public finalTotal: number = 0;
 
-  constructor(private shoppingCartService: ShoppingCartService,
-    private flagService: NationalFlagProductService) { }
+  constructor(private shoppingCartService: ShoppingCartService) { }
 
   ngOnInit(): void {
     this.getItemFromCaches();
@@ -31,6 +26,8 @@ export class ShoppingCartComponent implements OnInit {
     var currentItem = this.productInfors.find(e => (e.product.id == productId
                                             && e.color.id == colorId
                                             && e.size.id == sizeId));
+    var indexOfCurrentItem = this.productInfors.indexOf(currentItem);
+    this.productInfors.splice(indexOfCurrentItem);
     updatedAmount = isNegative? currentItem.orderAmount - 1 : currentItem.orderAmount + 1;
     
     if(updatedAmount > currentItem.size.amount){
@@ -41,23 +38,31 @@ export class ShoppingCartComponent implements OnInit {
       });
     } else{
       currentItem.orderAmount = updatedAmount;
+      this.productInfors.push(currentItem);
+      localStorage.removeItem('shopping_cart');
       localStorage.setItem('shopping_cart', JSON.stringify(currentItem))
     }
+
+    this.calculateSubTotal();
   }
 
   private getItemFromCaches(){
-    this.productInfors = this.shoppingCartService.getShoppingCartItems();
-    this.productInfors.forEach(e => {
-      e.product.original = this.classNameByNationalFlag(e.product.original),
-      e.product.imagePath = this.convertImagePath(e.product.imagePath)
-    });
+    var productsFromCache = this.shoppingCartService.getShoppingCartItems();
+    if(!productsFromCache){
+      return;
+    }
+    if(productsFromCache.color){
+      this.productInfors.push(productsFromCache);
+    } else{
+      this.productInfors = productsFromCache;
+    }
   }
 
   private calculateTotal(orderAmount: number, productPrice: number){
     var discount = this.calculateDiscount(orderAmount);
     var totalPrice = productPrice*orderAmount;
     var totalPriceAfterDiscounted = totalPrice - ((totalPrice*discount)/100);
-    return totalPriceAfterDiscounted;
+    return Number.parseFloat(totalPriceAfterDiscounted.toFixed(2));
   }
 
   private calculateDiscount(orderAmount: number){
@@ -70,9 +75,11 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   private calculateSubTotal(){
+    this.subTotal = 0;
     this.productInfors.forEach(element => {
       this.subTotal += this.calculateTotal(element.orderAmount, Number.parseFloat(element.product.defaultPrice));
     });
+    this.subTotal = Number.parseFloat(this.subTotal.toFixed(2));
   }
 
   public calculateFinalTotal(event:any){
@@ -97,15 +104,4 @@ export class ShoppingCartComponent implements OnInit {
       }
     });
   }
-
-  private classNameByNationalFlag(original: string){
-    var classNameByFlag = this.flagService.classByFlagName(original);
-    return classNameByFlag;
-  }
-
-  private convertImagePath(imagePath: string){
-    var path = `https://localhost:5001/Resources/Image_Files/${imagePath}`;
-    return path;
-  }
-
 }

@@ -116,13 +116,12 @@ export class PreviewsProductComponent implements OnInit {
           id: this.data.id,
           name: this.data.name,
           defaultPrice: this.data.defaultPrice,
-          original: this.data.original,
-          imagePath: this.data.image,
+          original: this.classNameByNationalFlag(),
+          imagePath: this.convertImagePath(this.data.image),
           star: 0,
           description: "",
           createdAt: new Date()
         };
-
         var item: ShoppingCartItem = {
           product: product,
           color: color,

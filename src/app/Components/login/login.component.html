@@ -1,14 +1,26 @@
 <div class="login-container">
-    <h2 class="form-signin-heading">LOGIN</h2>
-    <form action="POST" class="form-signin" #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && login(loginForm)">
+    <h2 class="form-signin-heading">Login</h2>
+    <form class="form-signin" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
         <div class="display-flex">
-            <label for="username">Username/Email address</label>
-            <input type="text" id="username" [(ngModel)]="loginForm.username" placeholder="Username or Email address" required autofocus>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" [(ngModel)]="form.username" placeholder="Username" #username="ngModel" required minlength="3" maxlength="20" autofocus>
+            <div *ngIf="username.errors && f.submitted">
+                <div *ngIf="username.errors.required">Username is required</div>
+                <div *ngIf="username.errors.minlength">Username must be at least 3 characters</div>
+                <div *ngIf="username.errors.maxlength">Username must be at most 20 characters</div>
+            </div>
         </div>
         <div class="display-flex">
             <label for="password">Password</label>
-            <input type="password" id="password" [(ngModel)]="loginForm.password"  placeholder="Password" required>
+            <input type="password" id="password" name="password" [(ngModel)]="form.password" #password="ngModel" placeholder="Password" required minlength="6">
+            <div *ngIf="password.errors && f.submitted">
+                <div *ngIf="password.errors.required">Password is required</div>
+                <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
         </div>
-        <button type="submit">Login</button>
+        <div class="display-flex submit-section" >
+            <button type="submit">Login</button>
+            <a [routerLink]="['/register']">Register new account</a>
+        </div>
     </form>
 </div>

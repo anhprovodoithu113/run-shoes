@@ -9,7 +9,6 @@ export class NationalFlagProductService {
 
   public classByFlagName(original: string){
     var className = this.initFlagNameArray().find(e => e.name === original).className;
-
     return `flag-icon ${className} flag-icon-squared`;
   }
 

@@ -1,6 +1,6 @@
 <div class="register-container">
-    <h2 class="form-signin-heading">REGISTER</h2>
-    <form class="form-signin" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <h2 class="form-signup-heading">REGISTER</h2>
+    <form class="form-signup" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
         <div class="display-flex">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" [(ngModel)]="form.username" placeholder="Username" #username="ngModel" required minlength="3" maxlength="20" autofocus>

@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import { RegisterModel } from '../Models/register-model';
 
 const AUTH_API = "https://localhost:5001/api/authentication";
 const httpOptions = {
@@ -36,7 +35,7 @@ export class AuthService {
     return this.httpClient.post(`${AUTH_API}/login`, {
       username,
       password
-    }, httpOptions);
+    }, httpOptions).pipe(retry(1), catchError(this.handleError));
   }
 
   public register(username: string, email: string, password: string, confirmPassword: string): Observable<any>{
