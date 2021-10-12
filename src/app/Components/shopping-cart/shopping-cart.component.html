@@ -1,5 +1,8 @@
 <h2>Shopping cart</h2>
-<div class="shopping-cart-container display-flex-space-around">
+<div *ngIf="productInfors.length == 0">
+    <img src="../../../assets/img/empty-cart.png" alt="">
+</div>
+<div *ngIf="productInfors.length > 0" class="shopping-cart-container display-flex-space-around">
     <table>
         <tr>
             <th>items</th>

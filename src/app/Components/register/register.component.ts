@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RegisterModel } from 'src/app/Models/register-model';
 import { AuthService } from 'src/app/Services/auth.service';
 import Swal from 'sweetalert2';
 
@@ -15,8 +14,6 @@ export class RegisterComponent implements OnInit {
     password: null,
     confirmPassword: null
   };
-  isSuccessful=false;
-  isSignUpFailed=false;
   errorMessage='';
 
   constructor(private authService:AuthService) { }
@@ -29,15 +26,12 @@ export class RegisterComponent implements OnInit {
     
     this.authService.register(username, email, password, confirmPassword).subscribe(
       data => {
-        this.isSuccessful=true;
-        this.isSignUpFailed=false;
         Swal.fire({title:"Your registration is successful!",icon:'success',timer:1500}).then(() =>{
           window.location.href='http://localhost:4200/login';
         });
       },
       err =>{
         Swal.fire(err.error.message);
-        this.isSignUpFailed=true;
       }
     )
   }

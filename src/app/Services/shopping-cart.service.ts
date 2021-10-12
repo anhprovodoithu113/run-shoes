@@ -5,14 +5,19 @@ import { ShoppingCartItem } from '../Models/shopping-cart-item';
   providedIn: 'root'
 })
 export class ShoppingCartService {
-  shopping_cart_items: any[] = [];
-
+  productInfors: ShoppingCartItem[] = [];
   constructor() { }
 
   addProduct = (productInformation: ShoppingCartItem) => {
     let items = this.getShoppingCartItems();
     if(items){
-      var currentItem = items.find(p => (p.product.id == productInformation.product.id
+      if(items.color){
+        this.productInfors.push(items);
+      } else{
+        this.productInfors = items;
+      }
+
+      var currentItem = this.productInfors.find(p => (p.product.id == productInformation.product.id
         && p.color.id == productInformation.color.id 
         && p.size.id == productInformation.size.id));
       if(currentItem){
@@ -20,24 +25,32 @@ export class ShoppingCartService {
         localStorage.setItem('shopping_cart', JSON.stringify(items))
       }
       else {
-        this.shopping_cart_items.push(productInformation);
-        localStorage.setItem('shopping_cart', JSON.stringify(this.shopping_cart_items));
+        this.productInfors.push(productInformation);
+        localStorage.removeItem('shopping_cart');
+        localStorage.setItem('shopping_cart', JSON.stringify(this.productInfors));
       }
-    }
-     else {
-      this.shopping_cart_items.push(productInformation);
-      localStorage.setItem('shopping_cart', JSON.stringify(this.shopping_cart_items));
+    }else {
+      this.productInfors.push(productInformation);
+      localStorage.setItem('shopping_cart', JSON.stringify(this.productInfors));
     }
   }
 
-  getShoppingCartItems = (): ShoppingCartItem[] => {
+  getShoppingCartItems = (): any => {
     let items = localStorage.getItem('shopping_cart');
     return JSON.parse(items);
   }
 
   getCartLength = (): number => {
     let itemsFromCache = this.getShoppingCartItems();
-    var cartLength = itemsFromCache? itemsFromCache.length:0;
+    var cartLength = 0;
+    if(!itemsFromCache){
+      return cartLength;
+    }
+    if(itemsFromCache.color){
+      cartLength = 1;
+    } else{
+      cartLength = itemsFromCache.length
+    }
     return cartLength;
   }
 

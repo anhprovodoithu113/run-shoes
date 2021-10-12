@@ -64,8 +64,11 @@ export class ProductDetailsComponent implements OnInit {
       if(message != ''){
         Swal.fire(message);
       } else{
+        var productNeedToAdd = this.product;
+        productNeedToAdd.imagePath = this.createImgPath(productNeedToAdd.imagePath);
+        productNeedToAdd.original = this.classNameByNationalFlag(productNeedToAdd.original);
         var item: ShoppingCartItem = {
-          product: this.product,
+          product: productNeedToAdd,
           color: color,
           size: size,
           orderAmount: this.inputAmount
@@ -91,46 +94,23 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   private getProductById(productId: number){
-    var key = `product_details: ${productId}`;
-    var productFromCache = this.productService.getItemsFromCache(key);
-    if(!productFromCache){
-      this.productService.getProductById(productId).subscribe((data: any) => {
-        this.productService.setItemsToCache(key, data);
-        this.product = data;
-        this.customerReviews = data.customerReviews;
-      });
-    } else{
-      this.product = productFromCache;
-      this.customerReviews = productFromCache.customerReviews;
-    }
+    this.productService.getProductById(productId).subscribe((data: any) => {
+      this.product = data;
+      this.customerReviews = data.customerReviews;
+    });
   };
 
   private getProductColorByProductId(productId: number){
-    var key = `product_colors_for_productId: ${productId}`;
-    var productColorsFromCache = this.productService.getItemsFromCache(key);
-
-    if(!productColorsFromCache){
-      this.productService.getAllProductColors(productId).subscribe((data: ProductColor[]) => {
-        this.productService.setItemsToCache(key, data);
-        this.lstProdColor = data;
-      });
-    } else{
-      this.lstProdColor = productColorsFromCache;
-    }
+    this.productService.getAllProductColors(productId).subscribe((data: ProductColor[]) => {
+      this.lstProdColor = data;
+    });
   }
 
   public getProductStatus(productColorId: number, index: number){
     this.selectedProdColorIndex = index;
-    var key = `product_statuses_for_prodColorId: ${productColorId}`;
-    var productStatusesFromCache = this.productService.getItemsFromCache(key);
-    if(!productStatusesFromCache){
-      this.productService.getAllProductStatus(productColorId).subscribe((data) => {
-        this.productService.setItemsToCache(key, data);
-        this.lstProdStatus = data;
-      });
-    } else{
-      this.lstProdStatus = productStatusesFromCache;
-    }
+    this.productService.getAllProductStatus(productColorId).subscribe((data) => {
+      this.lstProdStatus = data;
+    });
   }
 
   private countingStarArr(productStar: number){
