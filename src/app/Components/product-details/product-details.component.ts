@@ -65,8 +65,6 @@ export class ProductDetailsComponent implements OnInit {
         Swal.fire(message);
       } else{
         var productNeedToAdd = this.product;
-        productNeedToAdd.imagePath = this.createImgPath(productNeedToAdd.imagePath);
-        productNeedToAdd.original = this.classNameByNationalFlag(productNeedToAdd.original);
         var item: ShoppingCartItem = {
           product: productNeedToAdd,
           color: color,
@@ -80,7 +78,6 @@ export class ProductDetailsComponent implements OnInit {
       message = 'The options is invalided'
       Swal.fire(message);
     }
-    
   }
 
   public checkAvaibility(index: number){
@@ -96,6 +93,8 @@ export class ProductDetailsComponent implements OnInit {
   private getProductById(productId: number){
     this.productService.getProductById(productId).subscribe((data: any) => {
       this.product = data;
+      this.product.imagePath = this.createImgPath(data.imagePath);
+      this.product.original = this.classNameByNationalFlag(data.original);
       this.customerReviews = data.customerReviews;
     });
   };
@@ -124,28 +123,18 @@ export class ProductDetailsComponent implements OnInit {
     }
   }
 
-  public createImgPath = (serverPath: string) => {
-    var path = `https://localhost:5001/Resources/Image_Files/${serverPath}`;
-    return path;
-  }
-
   private getAllProducts(){
-    var lstProductFromCache = this.productService.getItemsFromCache('lstProduct');
-    if(!lstProductFromCache){
-      this.productService.getAllProducts().subscribe((data: Products[]) =>{
-        var uniqueArray = this.getDistinctValue(data, 'name');
-        this.productService.setItemsToCache('lstProduct', uniqueArray);
-        var currentProduct = uniqueArray.find(p => p.id === this.productIdFromRoute);
-        const index = uniqueArray.indexOf(currentProduct);
-        uniqueArray.splice(index, 1);
-        this.lstProduct = uniqueArray.slice(0, 3);
-      });
-    } else{
-      var currentProduct = lstProductFromCache.find(p => p.id === this.productIdFromRoute);
-      const index = lstProductFromCache.indexOf(currentProduct);
-      lstProductFromCache.splice(index, 1);
-      this.lstProduct = lstProductFromCache.slice(0,3);
-    }
+    this.productService.getAllProducts().subscribe((data: Products[]) =>{
+      data.forEach(e =>{
+        e.imagePath = this.createImgPath(e.imagePath);
+        e.original = this.classNameByNationalFlag(e.original);
+      })
+      var uniqueArray = this.getDistinctValue(data, 'name');
+      var currentProduct = uniqueArray.find(p => p.id === this.productIdFromRoute);
+      const index = uniqueArray.indexOf(currentProduct);
+      uniqueArray.splice(index, 1);
+      this.lstProduct = uniqueArray.slice(0, 3);
+    });
   }
 
   private getDistinctValue(data: Products[], key: string){
@@ -155,7 +144,12 @@ export class ProductDetailsComponent implements OnInit {
     return arrayUniqueByKey;
   }
 
-  public classNameByNationalFlag(original: string){
+  private createImgPath = (serverPath: string) => {
+    var path = `https://localhost:5001/Resources/Image_Files/${serverPath}`;
+    return path;
+  }
+
+  private classNameByNationalFlag(original: string){
     var classNameByFlag = this.flagService.classByFlagName(original);
     return classNameByFlag;
   }
