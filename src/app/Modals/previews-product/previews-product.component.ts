@@ -54,31 +54,16 @@ export class PreviewsProductComponent implements OnInit {
   }
 
   public getProductColor(prodId: number){
-    var key = `product_colors_for_productId: ${prodId}`;
-    var prodColorsFromCache = this.productService.getItemsFromCache(key);
-    if(!prodColorsFromCache){
-      this.productService.getAllProductColors(prodId).subscribe((data) => {
-        this.productService.setItemsToCache(key, data);
-        this.lstProdColor = data;
-      });
-    } else{
-      this.lstProdColor = prodColorsFromCache;
-    }
+    this.productService.getAllProductColors(prodId).subscribe((data) => { 
+      this.lstProdColor = data;
+    });
   }
 
   public getProductStatus(prodColorId: number, index:number){
-    var key = `product_statuses_for_prodColorId: ${prodColorId}`;
     this.selectedProdColorIndex = index;
-    var prodStatusesFromCache = this.productService.getItemsFromCache(key);
-
-    if(!prodStatusesFromCache){
-      this.productService.getAllProductStatus(prodColorId).subscribe((data) => {
-        this.productService.setItemsToCache(key, data);
-        this.lstProdStatus = data;
-      });
-    } else{
-      this.lstProdStatus = prodStatusesFromCache;
-    }
+    this.productService.getAllProductStatus(prodColorId).subscribe((data) => {
+      this.lstProdStatus = data;
+    });
   }
 
   public checkAvaibility(index: number){

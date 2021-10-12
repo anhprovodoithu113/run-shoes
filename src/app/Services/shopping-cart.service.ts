@@ -26,7 +26,6 @@ export class ShoppingCartService {
       }
       else {
         this.productInfors.push(productInformation);
-        localStorage.removeItem('shopping_cart');
         localStorage.setItem('shopping_cart', JSON.stringify(this.productInfors));
       }
     }else {

@@ -12,7 +12,7 @@
             <th>total</th>
             <th></th>
         </tr>
-        <tr *ngFor="let item of productInfors">
+        <tr *ngFor="let item of productInfors; let i = index">
             <td class="product-details">
                 <div>
                     <img [src]="item.product.imagePath" alt="example-product">
@@ -25,14 +25,14 @@
             </td>
             <td>${{item.product.defaultPrice}}</td>
             <td class="product-quantity">
-                <button (click)="updateAmountFromCache(item.product.id, item.color.id, item.size.id, true)">-</button>
+                <button (click)="updateAmountFromCache(item.product.id, item.color.id, item.size.id, i, true)">-</button>
                 <label for="amount">{{item.orderAmount}}</label>
-                <button (click)="updateAmountFromCache(item.product.id, item.color.id, item.size.id, false)">+</button>
+                <button (click)="updateAmountFromCache(item.product.id, item.color.id, item.size.id, i, false)">+</button>
             </td>
             <td>{{calculateDiscount(item.orderAmount)}}%</td>
             <td>${{calculateTotal(item.orderAmount, item.product.defaultPrice)}}</td>
             <td>
-                <button (click)='removeItemsFromCache()'>&times;</button>
+                <button (click)='removeItemsFromCache(i)'>&times;</button>
             </td>
         </tr>
     </table>

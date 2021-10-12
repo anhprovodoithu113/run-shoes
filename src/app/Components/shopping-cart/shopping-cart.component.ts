@@ -21,16 +21,16 @@ export class ShoppingCartComponent implements OnInit {
     this.calculateSubTotal();
   }
 
-  private updateAmountFromCache(productId: number, colorId: number, sizeId: number, isNegative: boolean){
+  private updateAmountFromCache(productId: number, colorId: number, sizeId: number, indexCurrentItem: number, isNegative: boolean){
     var updatedAmount = 0;
     var currentItem = this.productInfors.find(e => (e.product.id == productId
                                             && e.color.id == colorId
                                             && e.size.id == sizeId));
-    var indexOfCurrentItem = this.productInfors.indexOf(currentItem);
-    this.productInfors.splice(indexOfCurrentItem);
     updatedAmount = isNegative? currentItem.orderAmount - 1 : currentItem.orderAmount + 1;
-    
-    if(updatedAmount > currentItem.size.amount){
+    if(updatedAmount == 0){
+      this.removeItemsFromCache(indexCurrentItem);
+    }
+    else if(updatedAmount > currentItem.size.amount){
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -38,9 +38,7 @@ export class ShoppingCartComponent implements OnInit {
       });
     } else{
       currentItem.orderAmount = updatedAmount;
-      this.productInfors.push(currentItem);
-      localStorage.removeItem('shopping_cart');
-      localStorage.setItem('shopping_cart', JSON.stringify(currentItem))
+      localStorage.setItem('shopping_cart', JSON.stringify(this.productInfors))
     }
 
     this.calculateSubTotal();
@@ -86,7 +84,7 @@ export class ShoppingCartComponent implements OnInit {
     this.finalTotal = this.subTotal + 5;
   }
 
-  public removeItemsFromCache(){
+  public removeItemsFromCache(itemIndex: number){
     Swal.fire({
       title: 'Are you sure?',
       icon: 'warning',
@@ -96,12 +94,19 @@ export class ShoppingCartComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
+        this.deleteItem(itemIndex)
         Swal.fire(
           'Deleted!',
           'This item has been deleted.',
           'success'
-        )
+        );
+        this.calculateSubTotal();
       }
     });
+  }
+
+  private deleteItem(itemIndex: number){
+    this.productInfors.splice(itemIndex, 1);
+    localStorage.setItem('shopping_cart', JSON.stringify(this.productInfors));
   }
 }

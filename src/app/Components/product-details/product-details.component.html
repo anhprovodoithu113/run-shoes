@@ -1,7 +1,7 @@
 <div class="preview-container">
     <div class="info-product-container display-flex">
         <div class="left-column">
-            <img [src]="createImgPath(product.imagePath)" [alt]="product.name">
+            <img [src]="product.imagePath" [alt]="product.name">
         </div>
         <div class="right-column">
             <p>{{product.name}}</p>
@@ -17,7 +17,7 @@
             <ng-template #thenBlock>{{customerReviews.length}} Reviews</ng-template>
             <ng-template #elseBlock>{{customerReviews.length}} Review</ng-template>
             <p class="default-product-price">Default price: <span>${{product.defaultPrice}}</span></p>
-            <p class="display-original">Original:&nbsp;&nbsp;<span [class]='classNameByNationalFlag(product.original)'></span></p>
+            <p class="display-original">Original:&nbsp;&nbsp;<span [class]='product.original'></span></p>
             <p>Avability:&nbsp;{{avabilityStatus}}</p>
             
             <div class="options-section">
@@ -58,7 +58,7 @@
     <ul class="display-flex">
         <li class="item-details" *ngFor="let item of lstProduct">
             <div class="item-image">
-                <a href="#"><img [src]="createImgPath(item.imagePath)" [title] = "item.name"></a>
+                <a [routerLink]="['/product-details', item.id]"><img [src]="item.imagePath" [title] = "item.name"></a>
                 <button class="preview-btn" mat-button (click)="openDialog(item.id,item.name, item.defaultPrice, item.original, item.imagePath)">Preview</button>
             </div>
             <a href="#">{{ item.name }}</a>
@@ -66,7 +66,7 @@
                 {{item.rated}}
             </div>
             <span>${{ item.defaultPrice }}</span>
-            <span class="display-original">Original:&nbsp;&nbsp;<span [class]='classNameByNationalFlag(item.original)'></span></span>
+            <span class="display-original">Original:&nbsp;&nbsp;<span [class]='item.original'></span></span>
         </li>
       </ul>
 </div>
