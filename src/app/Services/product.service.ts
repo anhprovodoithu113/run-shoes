@@ -2,9 +2,12 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import Swal from 'sweetalert2';
+import { CheckoutProductRequest } from '../Models/checkout-product-request';
 import { ProductColor } from '../Models/product-color';
 import { ProductStatus } from '../Models/product-status';
 import { Products } from '../Models/products';
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +16,7 @@ export class ProductService {
 
   private SERVER_URL: string = 'https://localhost:5001/api/products';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private tokenStorage: TokenStorageService) { }
 
   private handleError(error: HttpErrorResponse){
     let errorMessage = 'Unknown error!';
@@ -24,7 +27,10 @@ export class ProductService {
       // Server-side errors
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    window.alert(errorMessage);
+    Swal.fire({
+      title: errorMessage,
+      icon: 'error'
+    });
     return throwError(errorMessage);
   }
 
@@ -55,5 +61,15 @@ export class ProductService {
 
   public setItemsToCache(key, items: any){
     localStorage.setItem(key, JSON.stringify(items));
+  }
+
+  public checkoutProduct(item: CheckoutProductRequest){
+    const token = this.tokenStorage.getToken().accessToken;
+    var checkoutProductAPI = `${this.SERVER_URL}/checkout-products`;
+    return this.httpClient.post<any>(checkoutProductAPI, item, {
+      headers: {
+        'Authorization': token
+      }
+    }).pipe(retry(1), catchError(this.handleError));
   }
 }
