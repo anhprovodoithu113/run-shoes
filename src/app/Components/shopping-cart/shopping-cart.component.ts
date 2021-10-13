@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { CheckoutProductRequest } from 'src/app/Models/checkout-product-request';
 import { ShoppingCartItem } from 'src/app/Models/shopping-cart-item';
+import { ProductService } from 'src/app/Services/product.service';
 import { ShoppingCartService } from 'src/app/Services/shopping-cart.service';
+import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,7 +17,9 @@ export class ShoppingCartComponent implements OnInit {
   public subTotal: number = 0;
   public finalTotal: number = 0;
 
-  constructor(private shoppingCartService: ShoppingCartService) { }
+  constructor(private shoppingCartService: ShoppingCartService,
+    private productService: ProductService,
+    private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
     this.getItemFromCaches();
@@ -42,6 +47,47 @@ export class ShoppingCartComponent implements OnInit {
     }
 
     this.calculateSubTotal();
+  }
+
+  public onCheckout(){
+    const token = this.tokenStorage.getToken().accessToken;
+    const expiredTime = new Date(this.tokenStorage.getToken().expiredTime);
+    var currentTime = new Date();
+    if(!token && currentTime > expiredTime){
+      Swal.fire({
+        title: 'You need to log in before doing this action!',
+        icon: 'error'
+      });
+      window.sessionStorage.clear();
+      return;
+    }
+
+    for (let i = 0; i < this.productInfors.length; i++) {
+      let element = this.productInfors[i];
+      let item: CheckoutProductRequest = {
+        productStatusId: element.size.id,
+        orderedAmount: element.orderAmount,
+        totalPrice: this.calculateTotal(element.orderAmount, Number.parseFloat(element.product.defaultPrice))
+      };
+      
+      if(i == 0){
+        item.totalPrice += 5;
+      }
+
+      this.productService.checkoutProduct(item).subscribe((data: any) => {
+      }, err => {
+        Swal.fire(err);
+        return;
+      });
+    }
+    localStorage.removeItem('shopping_cart');
+    Swal.fire({
+      title: 'Checkout successful!',
+      icon: 'success'
+    }).then(() => {
+      window.location.reload();
+    });
+    
   }
 
   private getItemFromCaches(){
